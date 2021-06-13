@@ -116,3 +116,8 @@
     content: ""!important;
     margin-left: 0px!important;
 }
+
+.variations tbody tr td:first-child {
+    width: 150px!important;
+    word-break: break-all;
+}
