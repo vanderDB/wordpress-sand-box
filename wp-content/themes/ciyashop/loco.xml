@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle name="CiyaShop">
+  <domain name="ciyashop">
+    <project name="CiyaShop" slug="ciyashop">
+      <source>
+        <directory>.</directory>
+      </source>
+      <target>
+        <directory>languages</directory>
+      </target>
+      <template>
+        <file>languages/ciyashop.pot</file>
+      </template>
+    </project>
+  </domain>
+  <exclude>
+    <directory>includes/tgm-plugin-activation/core</directory>
+  </exclude>
+</bundle>

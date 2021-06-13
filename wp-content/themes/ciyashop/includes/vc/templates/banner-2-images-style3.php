@@ -1,0 +1,15 @@
+<?php
+/**
+ * Banner 2 Images Style 3
+ *
+ * @package CiyaShop
+ */
+
+return array(
+	'name'              => esc_html__( 'Banner 2 Images Style 3', 'ciyashop' ),
+	'template_category' => esc_html__( 'Banner', 'ciyashop' ),
+	'disabled'          => true, // Disable it to not show in the default tab.
+	'content'           => '<<<CONTENT
+[vc_row pgscore_enable_responsive_settings="true" el_id="1533302113732-fa446efa-54b6" css=".vc_custom_1545639789116{margin-top: 80px !important;margin-bottom: 50px !important;}" element_css_md=".vc_custom_1545639789117{margin-top: 60px !important;margin-bottom: 30px !important;}" element_css_sm=".vc_custom_1545639789118{margin-top: 50px !important;margin-bottom: 20px !important;}" element_css_xs=".vc_custom_1545639789119{margin-top: 40px !important;margin-bottom: 10px !important;}"][vc_column width="7/12" css=".vc_custom_1533646413985{margin-bottom: 30px !important;}" el_id="1545639603543-c9e7b6f7-cca4"][pgscore_banner vertical_align="vmiddle" banner_effect="border" font_size_xl="70" font_size_lg="60" font_size_md="50" font_size_sm="40" font_size_xs="30" list_items="%5B%7B%22title%22%3A%22Summer%3Cbr%3ECollection%22%2C%22use_google_font%22%3A%22yes%22%2C%22banner_google_fonts%22%3A%22font_family%3AStardos%2520Stencil%253Aregular%252C700%7Cfont_style%3A700%2520bold%2520regular%253A700%253Anormal%22%2C%22google_font_enqueue_source%22%3A%22default%22%2C%22font_size%22%3A%2280%22%2C%22color%22%3A%22%23ffffff%22%2C%22letter_spacing%22%3A%220%22%2C%22text_show_hide%22%3A%22xl%22%7D%5D" bg_img_source="external_link" button_text_transform="uppercase" button_letter_spacing="0" font_size_responsive="true" style="style-1" button_text="Shop now" button_text_color="#ffffff" button_hover_text_color="#323232" link_url="url:%23|||" banner_css=".vc_custom_1533900086923{padding-left: 80px !important;}" bg_img_link="http://ciyashop.potenzaglobalsolutions.com/fashion-vintage/wp-content/uploads/sites/29/2018/08/adv-banner-img1.jpg"][/vc_column][vc_column width="5/12" css=".vc_custom_1533646421083{margin-bottom: 30px !important;}" el_id="1545639603572-a5ce95d8-255b"][pgscore_banner vertical_align="vmiddle" horizontal_align="hcenter" banner_effect="border" font_size_xl="70" font_size_lg="60" font_size_md="50" font_size_sm="40" font_size_xs="30" list_items="%5B%7B%22title%22%3A%2250%25%3Cbr%3Eoff%22%2C%22use_google_font%22%3A%22yes%22%2C%22banner_google_fonts%22%3A%22font_family%3AAbril%2520Fatface%253Aregular%7Cfont_style%3A400%2520regular%253A400%253Anormal%22%2C%22google_font_enqueue_source%22%3A%22default%22%2C%22font_size%22%3A%22100%22%2C%22color%22%3A%22%23ffffff%22%2C%22text_transform%22%3A%22uppercase%22%2C%22letter_spacing%22%3A%220%22%2C%22text_show_hide%22%3A%22xl%22%7D%5D" bg_img_source="external_link" button_text_transform="uppercase" button_letter_spacing="0" font_size_responsive="true" style="style-1" button_text="Shop now" button_text_color="#ffffff" button_hover_text_color="#baa17d" link_url="|||" bg_img_link="http://ciyashop.potenzaglobalsolutions.com/fashion-vintage/wp-content/uploads/sites/29/2018/08/adv-banner-img2.jpg"][/vc_column][/vc_row]
+CONTENT',
+);

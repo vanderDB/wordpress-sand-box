@@ -1,0 +1,42 @@
+<wpml-config>
+	<admin-texts>
+		<key name="ciyashop_options">
+			<key name="comingsoon_subtitle" />
+			<key name="comingsoon_title" />
+			<key name="fourofour_page_content_subtitle" />
+			<key name="fourofour_page_content_title" />
+			<key name="fourofour_page_title" />
+			<key name="wishlist_empty_text" />
+			<key name="compare_empty_text" />
+			<key name="compare_title" />
+			<key name="add_to_wishlist_text" />
+			<key name="browse_wishlist_text" />
+			<key name="product_added_text" />
+			<key name="already_in_wishlist_text" />
+			<key name="fri_time" />
+			<key name="logo_text" />
+			<key name="mailchimp_api_key" />
+			<key name="mailchimp_list_id" />
+			<key name="maintenance_subtitle" />
+			<key name="maintenance_title" />
+			<key name="mon_time" />
+			<key name="product-hot-label" />
+			<key name="product-sale-label" />
+			<key name="product_countdown_title" />
+			<key name="product_filter_title" />
+			<key name="related_portfolio_title" />
+			<key name="sat_time" />
+			<key name="search_keywords_title" />
+			<key name="search_placeholder_text" />
+			<key name="site_email" />
+			<key name="site_phone" />
+			<key name="sun_time" />
+			<key name="thu_time" />
+			<key name="tue_time" />
+			<key name="vimeo_video" />
+			<key name="wed_time" />
+			<key name="youtube_video" />
+			<key name="fourofour_page_content_description" group="Custom group" />
+		</key>
+	</admin-texts>
+</wpml-config>

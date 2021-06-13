@@ -1,0 +1,25 @@
+<?php
+/**
+ * Form With Contact Info 3
+ *
+ * @package CiyaShop
+ */
+
+return array(
+	'name'              => esc_html__( 'Form With Contact Info 3', 'ciyashop' ),
+	'template_category' => esc_html__( 'Form', 'ciyashop' ),
+	'disabled'          => true, // Disable it to not show in the default tab.
+	'content'           => '<<<CONTENT
+	<p>[vc_row pgscore_enable_responsive_settings="true" el_id="1551424889663-514b9286-5c8a" css=".vc_custom_1552032850726{padding-top: 80px !important;padding-bottom: 50px !important;}" element_css_md=".vc_custom_1552032850729{padding-top: 60px !important;padding-bottom: 40px !important;}" element_css_sm=".vc_custom_1552032850731{padding-top: 50px !important;padding-bottom: 0px !important;}" element_css_xs=".vc_custom_1552032850733{padding-top: 30px !important;padding-bottom: 0px !important;}"][vc_column el_id="1551424889671-44599b60-82dc"][vc_single_image source="external_link" alignment="center" custom_src="https://ciyashop.potenzaglobalsolutions.com/nails/wp-content/uploads/sites/51/2019/04/contact-us-bg.png"][vc_row_inner pgscore_enable_responsive_settings="true" el_id="1551425078839-bccb3fc4-b41f" css=".vc_custom_1551425314918{margin-top: -60px !important;}" element_css_md=".vc_custom_1551425314921{margin-top: -60px !important;}" element_css_sm=".vc_custom_1551425314923{margin-top: -50px !important;}" element_css_xs=".vc_custom_1551425314925{margin-top: -50px !important;}"][vc_column_inner el_id="1551425078844-224e7798-416c"][vc_custom_heading text="Get in Touch" font_container="tag:h2|text_align:center" use_theme_fonts="yes"][/vc_column_inner][/vc_row_inner][vc_column_text]</p>
+	<p style="text-align: center">Find a picture of what epitomizes success to you and then pull it out when you are in need of motivation.</p>
+	<p>[/vc_column_text][/vc_column][/vc_row][vc_row full_width="stretch_row" gap="30" equal_height="yes" content_placement="top" pgscore_enable_responsive_settings="true" el_id="1551425443622-3b62608e-da93" css=".vc_custom_1551429005948{padding-bottom: 50px !important;}" element_css_md=".vc_custom_1551429005951{padding-bottom: 30px !important;}" element_css_sm=".vc_custom_1551429005953{padding-bottom: 20px !important;}" element_css_xs=".vc_custom_1551429005955{padding-bottom: 0px !important;}"][vc_column el_id="1551425443629-5901b7f7-d694" offset="vc_col-lg-6 vc_col-md-6"][contact-form-7 id="6"][/vc_column][vc_column el_id="1551425496182-1f67b000-6215" offset="vc_col-lg-6 vc_col-md-6"][vc_row_inner equal_height="yes" content_placement="middle" gap="30" el_id="1551425621058-0fac7611-e5bc"][vc_column_inner width="1/2" el_id="1551425621065-09b4c675-298a" css=".vc_custom_1551425893695{background-color: #f5f5f5 !important;}"][vc_icon icon_fontawesome="fa fa-map-marker" color="custom" size="lg" align="center" custom_color="#f1284c" css=".vc_custom_1551426173410{margin-bottom: 0px !important;}"][vc_custom_heading text="Address" font_container="tag:h4|text_align:center|color:%23333333" use_theme_fonts="yes"][vc_column_text]</p>
+	<p style="text-align: center">1635 Franklin Street Montgomery,<br />	Near Sherwood Mall. AL 36104</p>
+	<p>[/vc_column_text][/vc_column_inner][vc_column_inner width="1/2" el_id="1551425624464-ae7e87af-0514" css=".vc_custom_1551425915139{background-color: #f5f5f5 !important;}"][vc_icon icon_fontawesome="fa fa-envelope-o" color="custom" size="lg" align="center" custom_color="#f1284c" css=".vc_custom_1551426474952{margin-bottom: 0px !important;}"][vc_custom_heading text="Support" font_container="tag:h4|text_align:center|color:%23333333" use_theme_fonts="yes"][vc_column_text]</p>
+	<p style="text-align: center"><a href="mailto:support@ciyashop.com">support@ciyashop.com</a><br />	<a href="mailto:gethelp@ciyashop.com">gethelp@ciyashop.com</a></p>
+	<p>[/vc_column_text][/vc_column_inner][/vc_row_inner][vc_row_inner equal_height="yes" content_placement="middle" gap="30" el_id="1551426446531-dafdf392-8c81"][vc_column_inner width="1/2" el_id="1551426446562-380fdebb-f1a0" css=".vc_custom_1551425893695{background-color: #f5f5f5 !important;}"][vc_icon icon_fontawesome="fa fa-phone" color="custom" size="lg" align="center" custom_color="#f1284c" css=".vc_custom_1551426613849{margin-bottom: 0px !important;}"][vc_custom_heading text="Phone" font_container="tag:h4|text_align:center|color:%23333333" use_theme_fonts="yes"][vc_column_text]</p>
+	<p style="text-align: center">126-632-2345<br />	126-632-3333</p>
+	<p>[/vc_column_text][/vc_column_inner][vc_column_inner width="1/2" el_id="1551426446669-fadbae12-eef6" css=".vc_custom_1551425915139{background-color: #f5f5f5 !important;}"][vc_icon icon_fontawesome="fa fa-clock-o" color="custom" size="lg" align="center" custom_color="#f1284c" css=".vc_custom_1551426694916{margin-bottom: 0px !important;}"][vc_custom_heading text="Opening Hours" font_container="tag:h4|text_align:center|color:%23333333" use_theme_fonts="yes"][vc_column_text]</p>
+	<p style="text-align: center">Mon to Fri 09:00 am – 6:30 pm<br />	Sat 09:00 am – 1:30 pm</p>
+	<p>[/vc_column_text][/vc_column_inner][/vc_row_inner][/vc_column][/vc_row]</p>	
+CONTENT',
+);

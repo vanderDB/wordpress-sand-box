@@ -1,0 +1,15 @@
+<?php
+/**
+ * About Skill BG Image
+ *
+ * @package CiyaShop
+ */
+
+return array(
+	'name'              => esc_html__( 'About Skill with BG Image', 'ciyashop' ),
+	'template_category' => esc_html__( 'About', 'ciyashop' ),
+	'disabled'          => true, // Disable it to not show in the default tab.
+	'content'           => <<<CONTENT
+[vc_row full_width="stretch_row" pgscore_bg_type="row-background-dark" pgscore_background_position="center-center" pgscore_enable_responsive_settings="true" pgscore_enable_overlay="true" enable_first_overlay="true" first_overlay_opacity="85" first_background_color="#313131" el_id="1521110076583-6ef6928b-9839" css=".vc_custom_1545113912167{padding-top: 80px !important;padding-bottom: 80px !important;background-image: url(http://ciyashop.potenzaglobalsolutions.com/coffee/wp-content/uploads/sites/8/2018/03/section-bg.jpg?id=10941) !important;}" element_css_md=".vc_custom_1545113912168{padding-top: 60px !important;padding-bottom: 60px !important;}" element_css_sm=".vc_custom_1545113912170{padding-top: 50px !important;padding-bottom: 50px !important;}" element_css_xs=".vc_custom_1545113912171{padding-top: 40px !important;padding-bottom: 40px !important;}" pgscore_overlay_color="rgba(49,49,49,0.85)"][vc_column offset="vc_col-lg-6 vc_col-md-6" css=".vc_custom_1521205361382{padding-top: 0px !important;}" el_id="1545113363794-3458ec1c-f3e1"][vc_custom_heading text="Why Choose us" font_container="tag:h3|text_align:left|color:%23c8833f" google_fonts="font_family:Aguafina%20Script%3Aregular|font_style:400%20regular%3A400%3Anormal" letter_spacing="custom" css=".vc_custom_1521092072881{margin-bottom: 10px !important;}" letter_spacing_custom="1px"][vc_custom_heading text="Our Skill" google_fonts="font_family:Patua%20One%3Aregular|font_style:400%20regular%3A400%3Anormal" css=".vc_custom_1524482523156{margin-bottom: 20px !important;}"][vc_column_text css=".vc_custom_1521111069264{margin-bottom: 35px !important;}"]Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.[/vc_column_text][/vc_column][vc_column offset="vc_col-lg-6 vc_col-md-6" css=".vc_custom_1521205369319{padding-top: 0px !important;}" el_id="1545113363848-33c5bacf-6b95"][vc_empty_space height="70px" el_class="d-none d-lg-block"][pgscore_progress_bar progress_bar_title_position="down" progress_bar_height="4" progress_bar_border="rounded" progress_bar_list="%5B%7B%22progress_bar_title%22%3A%22COFFEE%20GOODNESS%22%2C%22progress_bar_value%22%3A%2290%22%2C%22progress_bar_color%22%3A%22%23c8833f%22%7D%2C%7B%22progress_bar_title%22%3A%22CRAZY%20GNARLY%22%2C%22progress_bar_value%22%3A%2250%22%2C%22progress_bar_color%22%3A%22%23c8833f%22%7D%2C%7B%22progress_bar_title%22%3A%22MUSCLE%20GROWTH%22%2C%22progress_bar_value%22%3A%2275%22%2C%22progress_bar_color%22%3A%22%23c8833f%22%7D%5D"][/vc_column][/vc_row]
+CONTENT
+);

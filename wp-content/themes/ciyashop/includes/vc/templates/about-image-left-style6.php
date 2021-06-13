@@ -1,0 +1,16 @@
+<?php
+/**
+ * About Image Left Style 6
+ *
+ * @package CiyaShop
+ */
+
+return array(
+	'name'              => esc_html__( 'About Left Style 6', 'ciyashop' ),
+	'template_category' => esc_html__( 'About', 'ciyashop' ),
+	'disabled'          => true, // Disable it to not show in the default tab.
+	'content'           => '<<<CONTENT
+[vc_row full_width="stretch_row" equal_height="yes" content_placement="middle" pgscore_enable_responsive_settings="true" el_id="1523966087888-64cb7801-9adf" css=".vc_custom_1524054782939{padding-top: 80px !important;padding-bottom: 50px !important;background-color: #f5f5f5 !important;}" element_css_md=".vc_custom_1524054782941{padding-top: 60px !important;padding-bottom: 30px !important;}" element_css_sm=".vc_custom_1524054782942{padding-top: 50px !important;padding-bottom: 20px !important;}" element_css_xs=".vc_custom_1524054782944{padding-top: 40px !important;padding-bottom: 10px !important;}"][vc_column css=".vc_custom_1524054906027{margin-bottom: 30px !important;padding-top: 0px !important;}" offset="vc_col-lg-6 vc_col-md-6" el_id="1545054831223-698f1911-4abd"][vc_single_image source="external_link" alignment="center" custom_src="http://ciyashop.potenzaglobalsolutions.com/petstore/wp-content/uploads/sites/17/2018/04/dog-img2.png"][/vc_column][vc_column css=".vc_custom_1524054915585{margin-bottom: 30px !important;padding-top: 0px !important;}" offset="vc_col-lg-6 vc_col-md-6" el_id="1545054831246-b30f2b0b-ed79"][vc_custom_heading text="Quality &amp; Reliable" use_theme_fonts="yes" css=".vc_custom_1523968313758{margin-bottom: 20px !important;}"][vc_column_text css=".vc_custom_1523968719823{margin-bottom: 20px !important;}"]Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.[/vc_column_text][pgscore_list add_icon="true" list_items="%5B%7B%22content%22%3A%22Your%20Premiere%20Pet%20Services%22%7D%2C%7B%22content%22%3A%22%2015%2B%20Years%20Business%22%7D%2C%7B%22content%22%3A%22%20100%25%20Private%20and%20Engaging%20Walks%22%7D%2C%7B%22content%22%3A%22Your%20Premiere%20Pet%20Services%22%7D%2C%7B%22content%22%3A%22%2015%2B%20Years%20Business%22%7D%2C%7B%22content%22%3A%22%20100%25%20Private%20and%20Engaging%20Walks%22%7D%5D" element_css="" element_id="" element_class="" icon_type="fontawesome" icon_fontawesome="fa fa-check" icon_openiconic="vc-oi vc-oi-dial" icon_typicons="typcn typcn-adjust-brightness" icon_entypo="entypo-icon entypo-icon-note" icon_linecons="vc_li vc_li-heart" icon_monosocial="vc-mono vc-mono-fivehundredpx" icon_material="vc-material vc-material-cake" icon_pixelicons="vc_pixel_icon vc_pixel_icon-alert" icon_flaticon="" list_element_tag="p" list_font_weight="inherit" list_text_transform="inherit" list_title_color="#969696" list_title_hover_color="#ff642e" list_style_type="none" icon_style_type="flat" icon_shape="rounded" list_icon_color="#ff642e" list_icon_background_color="#ffffff"][/vc_column][/vc_row]
+CONTENT',
+);

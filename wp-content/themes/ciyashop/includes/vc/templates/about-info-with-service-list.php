@@ -1,0 +1,19 @@
+<?php
+/**
+ * About Info Width Service List
+ *
+ * @package CiyaShop
+ */
+
+return array(
+	'name'              => esc_html__( 'About Info With Service List', 'ciyashop' ),
+	'template_category' => esc_html__( 'About', 'ciyashop' ),
+	'disabled'          => true, // Disable it to not show in the default tab.
+	'content'           => '<<<CONTENT
+	<p>[vc_row equal_height="yes" content_placement="middle" pgscore_enable_responsive_settings="true" el_id="1540189186305-9a4adb46-524f" css=".vc_custom_1540455446677{padding-top: 50px !important;padding-bottom: 80px !important;}" el_class="garden-section" element_css_md=".vc_custom_1540455446692{padding-top: 30px !important;padding-bottom: 60px !important;}" element_css_sm=".vc_custom_1540455446702{padding-top: 20px !important;padding-bottom: 50px !important;}" element_css_xs=".vc_custom_1540455446710{padding-top: 10px !important;padding-bottom: 40px !important;}"][vc_column el_id="1540189186311-12a40461-323f" offset="vc_col-lg-5 vc_col-md-12" css=".vc_custom_1541419689283{margin-top: 30px !important;padding-top: 0px !important;}"][vc_column_text css=".vc_custom_1540196311141{margin-bottom: 15px !important;}"]</p>
+	<h2 style="font-size: 48px;line-height: 58px">We give you Care tips and <span style="color: #78b953"> Ideas on what style suits </span> your garden</h2>
+	<p>[/vc_column_text][vc_column_text]</p>
+	<p style="text-align: left">Let success motivate you. Find a picture of what epitomizes success to out when you are in need of motivation.</p>
+	<p>We all know people who live this truth It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.[/vc_column_text][pgscore_button button_background_color="#78b953" button_size="large" button_link="url:%23|title:DISCOVER%20MORE||"][/vc_column][vc_column el_id="1540189188617-88538c55-79ad" offset="vc_col-lg-4 vc_col-md-12" css=".vc_custom_1540287153500{margin-top: 30px !important;}"][vc_single_image source="external_link" alignment="center" custom_src="https://ciyashop.potenzaglobalsolutions.com/garden/wp-content/uploads/sites/49/2018/10/tree-plant.png"][/vc_column][vc_column pgscore_bg_type="row-background-dark" el_id="1540189188626-18576ce7-7e62" css=".vc_custom_1540287143190{margin-top: 30px !important;padding-top: 30px !important;padding-right: 30px !important;padding-bottom: 30px !important;padding-left: 30px !important;background-color: #78b953 !important;}" offset="vc_col-lg-3 vc_col-md-12"][vc_custom_heading text="We are available for 24/7 for Moving Services" font_container="tag:h2|text_align:left|color:%23352314" use_theme_fonts="yes" css=".vc_custom_1540195290810{margin-bottom: 50px !important;}"][pgscore_list add_icon="" list_items="%5B%7B%22content%22%3A%221%20%20Lawn%20Renovation%22%7D%2C%7B%22content%22%3A%222%20%20Garden%20Care%22%7D%2C%7B%22content%22%3A%223%20%20Seasonal%20Cleanups%22%7D%2C%7B%22content%22%3A%224%20%20Flow%20Escaping%22%7D%2C%7B%22content%22%3A%225%20%20Tree%20%26%20Shrub%20Care%22%7D%2C%7B%22content%22%3A%226%20%20Watering%20Garden%22%7D%5D" element_css="" element_id="" element_class="" icon_type="openiconic" icon_fontawesome="fa fa-info-circle" icon_openiconic="vc-oi vc-oi-dial" icon_typicons="typcn typcn-adjust-brightness" icon_entypo="entypo-icon entypo-icon-note" icon_linecons="vc_li vc_li-heart" icon_monosocial="vc-mono vc-mono-fivehundredpx" icon_material="vc-material vc-material-cake" icon_pixelicons="vc_pixel_icon vc_pixel_icon-alert" icon_flaticon="" list_element_tag="p" list_font_weight="inherit" list_text_transform="inherit" list_title_color="#ffffff" list_title_hover_color="#78b953" list_style_type="none" icon_style_type="default" icon_shape="square" list_icon_color="#78b953" list_icon_background_color="#323232" icon_themefy="ti-arrow-up"][/vc_column][/vc_row]</p>	
+CONTENT',
+);
