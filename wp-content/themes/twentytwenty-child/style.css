@@ -1,0 +1,17 @@
+/*
+Theme Name: Моя дочерняя тема
+Template: twentytwenty
+
+Не обязательные параметры:
+Theme URI: http://example.com/
+Description: Дочерняя тема для темы twentytwenty
+Author: Kama
+Author URI: http://example.com/about/
+Version: 1.0
+*/
+
+/* импортируем стили родительской темы */
+@import url("../twentytwenty/style.css");
+
+/* Свои дополнительные стили */
+.foo{ color:red; }
