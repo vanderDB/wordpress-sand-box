@@ -49,6 +49,8 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
     .custom-page__main-image {
         width: 480px;
         float: left;
+        padding: 15px;
+        margin-right: 15px;
     }
 
     .image-in-container {
@@ -405,7 +407,9 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
 </style>
 
 <div class="custom-page__body">
+    
     <input id = 'product-id' type="hidden" value="<?=$product->get_id();?>">
+
     <div class="custom-page__main-image">
         <img class="image-in-container" src="<?= $imagePath ?>">
     </div>
