@@ -405,6 +405,7 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
 </style>
 
 <div class="custom-page__body">
+    <input id = 'product-id' type="hidden" value="<?=$product->get_id();?>">
     <div class="custom-page__main-image">
         <img class="image-in-container" src="<?= $imagePath ?>">
     </div>
@@ -568,48 +569,198 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
 
 <script>
 
+    let width = 0;
+    let length = 0;
+    let constructionType = '';
+    let frameProtection = '';
+    let polycarbonate = '';
+    let productId = 0;
 
-    let formData = new FormData();
-    formData.append("attribute_pa_width", "2-5%d0%bc");
-    formData.append("attribute_pa_length", '8%d0%bc');
-    formData.append("attribute_pa_construction_type", 'cremlevskaya');
-    formData.append("attribute_pa_frame_protection", 'cink');
-    formData.append("attribute_pa_polycarbonate", 'polycal_ciwi');
-    formData.append("product_id", '12');
+    bindWidthSelector();
+    bindLengthSelector();
+    bindConstructionTypeSelector();
+    bindFrameProtectionSelector();
+    bindPolycarbonateSelector();
+    bindProductId();
 
-    var request = new XMLHttpRequest();
+    function bindWidthSelector(){
 
+        let widthButtons = document.querySelectorAll('.custom-page__radio-btn input[name=pa_width]');
 
-    request.addEventListener("progress", updateProgress, false);
-    request.addEventListener("load", transferComplete, false);
-    request.addEventListener("error", transferFailed, false);
-    request.addEventListener("abort", transferCanceled, false);
+        let i;
+        for (i = 0; i < widthButtons.length; ++i) {
 
+            if (widthButtons[i].checked) {
+                setWidth(widthButtons[i].value);
+            }
 
-    // состояние передачи от сервера к клиенту (загрузка)
-    function updateProgress (oEvent) {
-        if (oEvent.lengthComputable) {
-            var percentComplete = oEvent.loaded / oEvent.total;
-            // ...
-        } else {
-            // Невозможно вычислить состояние загрузки, так как размер неизвестен
+            widthButtons[i].addEventListener("change", function (e) {
+                setWidth(e.target.value);
+                getVariation();
+            });
         }
     }
-
-    function transferComplete(evt) {
-        alert("Загрузка завершена.");
+    function setWidth(newValue) {
+        width = newValue;
+        console.log('Width changed: ' + newValue);
     }
 
-    function transferFailed(evt) {
-        alert("При загрузке файла произошла ошибка.");
+    function bindLengthSelector(){
+
+        let existedElements = document.querySelectorAll('.custom-page__radio-btn input[name=pa_length]');
+
+        let i;
+        for (i = 0; i < existedElements.length; ++i) {
+
+            if (existedElements[i].checked) {
+                setLength(existedElements[i].value);
+            }
+
+            existedElements[i].addEventListener("change", function (e) {
+                setLength(e.target.value);
+                getVariation();
+            });
+        }
+    }
+    function setLength(newValue) {
+        length = newValue;
+        console.log('Length changed: ' + length);
     }
 
-    function transferCanceled(evt) {
-        alert("Пользователь отменил загрузку.");
+    function bindConstructionTypeSelector(){
+
+        let existedElements = document.querySelectorAll('.custom-page__radio input[name=pa_construction_type]');
+
+        let i;
+        for (i = 0; i < existedElements.length; ++i) {
+
+            if (existedElements[i].checked) {
+                setConstructionType(existedElements[i].value);
+            }
+
+            existedElements[i].addEventListener("change", function (e) {
+                setConstructionType(e.target.value);
+                getVariation();
+            });
+        }
+    }
+    function setConstructionType(newValue) {
+        constructionType = newValue;
+        console.log('constructionType changed: ' + constructionType);
+    }
+
+    function bindFrameProtectionSelector(){
+
+        let existedElements = document.querySelectorAll('.custom-page__radio input[name=pa_frame_protection]');
+
+        let i;
+        for (i = 0; i < existedElements.length; ++i) {
+
+            if (existedElements[i].checked) {
+                setFrameProtection(existedElements[i].value);
+            }
+
+            existedElements[i].addEventListener("change", function (e) {
+                setFrameProtection(e.target.value);
+                getVariation();
+            });
+        }
+    }
+    function setFrameProtection(newValue) {
+        frameProtection = newValue;
+        console.log('frameProtection changed: ' + frameProtection);
+    }
+
+    function bindPolycarbonateSelector(){
+
+        let existedElements = document.querySelectorAll('.custom-page__radio input[name=pa_polycarbonate]');
+
+        let i;
+        for (i = 0; i < existedElements.length; ++i) {
+
+            if (existedElements[i].checked) {
+                setPolycarbonate(existedElements[i].value);
+            }
+
+            existedElements[i].addEventListener("change", function (e) {
+                setPolycarbonate(e.target.value);
+                getVariation();
+            });
+        }
+    }
+    function setPolycarbonate(newValue) {
+        polycarbonate = newValue;
+        console.log('polycarbonate changed: ' + polycarbonate);
+    }
+
+    function bindProductId(){
+
+        let existedElement = document.getElementById('product-id');
+        setProductId(existedElement.value);
+    }
+    function setProductId(newValue) {
+        productId = newValue;
+        console.log('productId changed: ' + productId);
     }
 
 
-    request.open("POST", "/?wc-ajax=get_variation");
-    request.send(formData);
+
+
+    function getVariation() {
+
+        let formData = new FormData();
+        formData.append("attribute_pa_width", width);
+        formData.append("attribute_pa_length", length);
+        formData.append("attribute_pa_construction_type", constructionType);
+        formData.append("attribute_pa_frame_protection", frameProtection);
+        formData.append("attribute_pa_polycarbonate", polycarbonate);
+        formData.append("product_id", productId);
+
+        var request = new XMLHttpRequest();
+
+
+        // request.addEventListener("progress", updateProgress, false);
+        request.addEventListener("load", transferComplete, false);
+        request.addEventListener("error", transferFailed, false);
+        // request.addEventListener("abort", transferCanceled, false);
+
+
+        // состояние передачи от сервера к клиенту (загрузка)
+        function updateProgress (oEvent) {
+            if (oEvent.lengthComputable) {
+                var percentComplete = oEvent.loaded / oEvent.total;
+                // ...
+            } else {
+                // Невозможно вычислить состояние загрузки, так как размер неизвестен
+            }
+        }
+
+        function transferComplete(evt) {
+            var result = JSON.parse(request.response);
+            let imagePath = result.image.url;
+
+            setImage(imagePath);
+        }
+
+        function transferFailed(evt) {
+            alert("При загрузке файла произошла ошибка.");
+        }
+
+        function transferCanceled(evt) {
+            alert("Пользователь отменил загрузку.");
+        }
+
+
+        request.open("POST", "/?wc-ajax=get_variation");
+        request.send(formData);
+    }
+
+    function setImage(value) {
+
+        var imageContainerOpt = document.getElementsByClassName('image-in-container');
+        if (imageContainerOpt.length > 0) {
+            imageContainerOpt[0].setAttribute('src', value);
+        }
+    }
 
 </script>
