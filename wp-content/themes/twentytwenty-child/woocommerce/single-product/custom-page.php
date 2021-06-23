@@ -4,14 +4,37 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-global $post, $product, $ciyashop_options;
+global $post, $product;
+//echo '<pre>'; var_export($post); echo '</pre>';
 
-$productName = 'Репка Двушка';
-$description = 'Это компактная теплица.  Базовая версия включает в себя 2 двери. Состоит из каркаса и обшивки из сотового поликарбоната. Каркас выполнен из профильной оцинкованной трубы 20х20 мм, что обеспечивает умеренную способность выдерживать сезонные нагрузки. Каркас из одной дуги отлично подойдет для использования теплицы в теплых регионах и областях, где низкий или средний уровень снеговой нагрузкой зимой.';
+const PA_CONSTRUCTION_TYPE = 'pa_construction_type';
+
+$productName = '';
+
+$termsForConstructionType = wc_get_product_terms(
+    $product->get_id(),
+    PA_CONSTRUCTION_TYPE,
+    array(
+        'fields' => 'all',
+    )
+);
+
+$default_attributes = $product->get_default_attributes();
+
+foreach ($termsForConstructionType as $term) :
+
+    if ($default_attributes[$term->taxonomy] === $term->slug) {
+        $productName = esc_attr($term->name);
+    }
+
+endforeach;
+
+
+$description = $product->get_description();
 $imagePath = 'https://xn--m1ao.xn--p1ai/upload/iblock/99a/99ac0779a689e10aee38f427b3b299ab.png';
 
 $attributes = $product->get_variation_attributes();
-$default_attributes = $product->get_default_attributes();
+
 
 $dimensionsAttributes = [];
 if (isset($attributes['pa_width']))
@@ -287,6 +310,7 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
         padding: 15px;
         background: #ffdc28;
         margin-bottom: 50px;
+        position: relative;
 
         -webkit-box-shadow: -2px 9px 13px -4px rgba(255, 220, 40, 0.17);
         -moz-box-shadow: -2px 9px 13px -4px rgba(255, 220, 40, 0.17);
@@ -404,10 +428,47 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
     }
 
 
+
+
+    .loader-box {
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        border-radius: 15px;
+        margin-left: -15px;
+        margin-top: -15px;
+
+        display: none;
+    }
+
+    .loader {
+        border: 10px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 10px solid #3498db;
+        width: 50px;
+        height: 50px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
 </style>
 
-<div class="custom-page__body">
-    
+<body onload="getVariation();" class="custom-page__body">
+
     <input id = 'product-id' type="hidden" value="<?=$product->get_id();?>">
 
     <div class="custom-page__main-image">
@@ -533,12 +594,17 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
 
     <div class="custom-page__order-form-container">
         <div class="custom-page__calc-menu">
+
+            <div class="loader-box">
+                <div class="loader"></div>
+            </div>
+
             <div class="custom-page__calc-menu-title">
                 Стоимость с учетом выбранных опций
             </div>
             <div class="custom-page__calc-menu-total">
                 <div class="custom-page__calc-menu-total-base">
-                    23 980
+                    <?=number_format($product->get_price(), 0, ',', ' ') ?>
                 </div>
                 <div class="custom-page__calc-menu-total-currency">
                     руб.
@@ -568,10 +634,15 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
         <input id="#phone" type="text" placeholder="Номер телефона">
         <input type="submit" value="Отправить заявку">
     </div>
-</div>
+</body>
 
 
 <script>
+
+    let availConstructionTypes = JSON.parse('<?= json_encode($termsForConstructionType) ?>');
+    //let defaultVariationsValues = JSON.parse('<?//= json_encode($default_attributes) ?>//');
+    //
+    //console.log(defaultVariationsValues);
 
     let width = 0;
     let length = 0;
@@ -710,6 +781,24 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
 
 
 
+    const loaderClass = 'loader-box';
+
+    function showLoader() {
+
+        var loaderBox = document.getElementsByClassName(loaderClass);
+        if (loaderBox.length>0) {
+            loaderBox[0].style.display = "flex";
+        }
+    }
+
+    function hideLoader() {
+
+        var loaderBox = document.getElementsByClassName(loaderClass);
+        if (loaderBox.length>0) {
+            loaderBox[0].style.display = "none";
+        }
+    }
+
     function getVariation() {
 
         let formData = new FormData();
@@ -741,9 +830,9 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
 
         function transferComplete(evt) {
             var result = JSON.parse(request.response);
-            let imagePath = result.image.url;
 
-            setImage(imagePath);
+            refreshUIVariationData(result);
+            hideLoader();
         }
 
         function transferFailed(evt) {
@@ -756,7 +845,40 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
 
 
         request.open("POST", "/?wc-ajax=get_variation");
+        showLoader();
         request.send(formData);
+    }
+
+    function refreshUIVariationData(result) {
+
+        refreshImage(result);
+        refreshPrice(result);
+        refreshTitle(result);
+    }
+
+    function refreshImage(result) {
+        let imagePath = result.image.url;
+        setImage(imagePath);
+    }
+
+    function refreshPrice(result) {
+        let newValue = result.display_price;
+        setPrice(newValue);
+    }
+
+    function refreshTitle(result) {
+
+        let selectedSlug = result.attributes.attribute_pa_construction_type;
+        let newValue = 'Н/Д';
+
+        console.log(availConstructionTypes);
+        availConstructionTypes.forEach(element => {
+           if (selectedSlug === element.slug) {
+               newValue = element.name;
+           }
+        });
+
+        setTitle(newValue);
     }
 
     function setImage(value) {
@@ -764,6 +886,20 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
         var imageContainerOpt = document.getElementsByClassName('image-in-container');
         if (imageContainerOpt.length > 0) {
             imageContainerOpt[0].setAttribute('src', value);
+        }
+    }
+    function setPrice(value) {
+
+        var elements = document.getElementsByClassName('custom-page__calc-menu-total-base');
+        if (elements.length > 0) {
+            elements[0].innerText = parseInt(value).toLocaleString('ru-RU');
+        }
+    }
+    function setTitle(value) {
+
+        var elements = document.getElementsByClassName('custom-page__product-name');
+        if (elements.length > 0) {
+            elements[0].innerText = value;
         }
     }
 
