@@ -12,21 +12,6 @@
  Text Domain:  ciyashop-child
 */
 
-/* импортируем стили родительской темы */
-@import url("../twentytwenty/style.css");
-
-@font-face {
-    font-family: Arsenal-Regular;
-    src: url(/wp-content/themes/twentytwenty-child/fonts/Arsenal-Regular.ttf);
-    font-weight: normal;
-}
-
-@font-face {
-    font-family: Arsenal-Bold;
-    src: url(/wp-content/themes/twentytwenty-child/fonts/Arsenal-Bold.ttf);
-    font-weight: bold;
-}
-
 .rtwpvs-term:not(.rtwpvs-radio-term) {
     height: auto!important;
 }
@@ -58,6 +43,7 @@
 
 .rtwpvs .rtwpvs-terms-wrapper .rtwpvs-term:not(.rtwpvs-radio-term).selected,
 .rtwpvs .rtwpvs-terms-wrapper .rtwpvs-term:not(.rtwpvs-radio-term).selected:hover {
+    /*box-shadow: 0 0 0 2px #000!important;*/
     background: #eaeaea!important;
     -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset !important;;
     -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset !important;;
@@ -124,4 +110,14 @@
     -ms-transition: background .4s ease;
     transition: background .4s ease;
     background: #8c1e14;
+}
+
+.woocommerce.single-product div.product form.cart .variations td label:after {
+    content: ""!important;
+    margin-left: 0px!important;
+}
+
+.variations tbody tr td:first-child {
+    width: 150px!important;
+    word-break: break-all;
 }
