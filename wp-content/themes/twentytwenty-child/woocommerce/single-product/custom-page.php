@@ -12,7 +12,7 @@ const PA_WIDTH = 'pa_width';
 const PA_LENGTH = 'pa_length';
 const PA_FRAME_PROTECTION = 'pa_frame_protection';
 
-$productName = '';
+
 
 $termsForConstructionType = getTermInfo($product->get_id(), PA_CONSTRUCTION_TYPE);
 $termsForPolycarbonate = getTermInfo($product->get_id(), PA_POLYCARBONATE);
@@ -34,40 +34,7 @@ function getTermInfo($productId, $attributeMarker): array
 
 $default_attributes = $product->get_default_attributes();
 
-
-$query = array(
-    'post_status' => 'publish',
-    'post_type' => array('product', 'product_variation'),
-    'posts_per_page' => 10,
-    'tax_query' => array(
-        'relation' => 'AND',
-        array(
-            'taxonomy' => 'pa_quantity',
-            'field' => 'term_id',
-            'terms' => '75',
-        ),
-    ),
-    'meta_key' => '_price',
-    'meta_value' => 500,
-);
-
-$wc_query = new WP_Query($query);
-
-
-foreach ($termsForConstructionType as $term) :
-
-    if ($default_attributes[$term->taxonomy] === $term->slug) {
-        $productName = esc_attr($term->name);
-    }
-
-endforeach;
-
-
-$description = $product->get_description();
-$imagePath = 'https://xn--m1ao.xn--p1ai/upload/iblock/99a/99ac0779a689e10aee38f427b3b299ab.png';
-
 $attributes = $product->get_variation_attributes();
-
 
 $dimensionsAttributes = [];
 if (isset($attributes[PA_WIDTH]))
@@ -78,20 +45,39 @@ if (isset($attributes[PA_LENGTH]))
 $baseOptionsAttributes = [];
 if (isset($attributes[PA_CONSTRUCTION_TYPE]))
     $baseOptionsAttributes[PA_CONSTRUCTION_TYPE] = $attributes[PA_CONSTRUCTION_TYPE];
-if (isset($attributes['pa_frame_protection']))
-    $baseOptionsAttributes['pa_frame_protection'] = $attributes['pa_frame_protection'];
+if (isset($attributes[PA_FRAME_PROTECTION]))
+    $baseOptionsAttributes[PA_FRAME_PROTECTION] = $attributes[PA_FRAME_PROTECTION];
 if (isset($attributes[PA_POLYCARBONATE]))
     $baseOptionsAttributes[PA_POLYCARBONATE] = $attributes[PA_POLYCARBONATE];
-
-$available_variations = array_values($product->get_available_variations());
-
-$attribute_keys  = array_keys( $attributes );
-$variations_json = wp_json_encode( $available_variations );
-$variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_json ) : _wp_specialchars( $variations_json, ENT_QUOTES, 'UTF-8', true );
 
 ?>
 
 <style>
+
+    .custom-page__global-loader-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        width: 100vw;
+        height: 100vH;
+        background: rgba(0,0,0,0.5);
+        border-radius: 15px;
+
+        top: 0px;
+        left: 0px;
+        z-index: 9999;
+    }
+
+    .custom-page__global-loader {
+        border: 20px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 20px solid #3498db;
+        width: 150px;
+        height: 150px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+    }
 
     .custom-page__body {
         font-family: "Arsenal-Regular", Arial, sans-serif;
@@ -100,6 +86,7 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
         min-height: 950px;
         min-width: 1140px;
         position: relative;
+        display: none;
     }
 
     .custom-page__main-image {
@@ -500,12 +487,17 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
 
 </style>
 
-<body onload="getVariation();" class="custom-page__body">
+<body onload="getVariation();">
+<div class="custom-page__global-loader-box">
+    <div class="custom-page__global-loader">
 
+    </div>
+</div>
+<div class="custom-page__body">
     <input id = 'product-id' type="hidden" value="<?=$product->get_id();?>">
 
     <div class="custom-page__main-image">
-        <img class="image-in-container" src="<?= $imagePath ?>">
+        <img class="image-in-container">
     </div>
     <div class="custom-page__info-block">
         <div class="custom-page__title">
@@ -513,7 +505,7 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
         </div>
         <div class="custom-page__product-name-container">
             <div class="custom-page__product-name">
-                <?= $productName ?>
+
             </div>
             <div class="custom-page__best-price-label">
                 Лучшая цена
@@ -528,7 +520,7 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
             </div>
         </div>
         <div class="custom-page__description">
-            <?= $description ?>
+
         </div>
     </div>
     <div class="custom-page__dimension-attributes-container">
@@ -556,13 +548,7 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
 
                     <?php
 
-                    $terms = wc_get_product_terms(
-                        $product->get_id(),
-                        $attribute_name,
-                        array(
-                            'fields' => 'all',
-                        )
-                    );
+                    $terms = getTermInfo($product->get_id(), $attribute_name);
 
                     foreach ($terms as $term) :
                         $checked = '';
@@ -597,13 +583,7 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
 
                 <?php
 
-                $terms = wc_get_product_terms(
-                    $product->get_id(),
-                    $attribute_name,
-                    array(
-                        'fields' => 'all',
-                    )
-                );
+                $terms = getTermInfo($product->get_id(), $attribute_name);
 
                 foreach ($terms as $term) :
                     $checked = '';
@@ -637,7 +617,7 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
             </div>
             <div class="custom-page__calc-menu-total">
                 <div class="custom-page__calc-menu-total-base">
-                    <?=number_format($product->get_price(), 0, ',', ' ') ?>
+
                 </div>
                 <div class="custom-page__calc-menu-total-currency">
                     руб.
@@ -657,10 +637,11 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
             </div>
         </div>
 
-        <input type="text" placeholder="Как к Вам обращаться?">
-        <input id="#phone" type="text" placeholder="Номер телефона">
-        <input type="submit" value="Отправить заявку">
+<!--        <input type="text" placeholder="Как к Вам обращаться?">-->
+<!--        <input id="#phone" type="text" placeholder="Номер телефона">-->
+<!--        <input type="submit" value="Отправить заявку">-->
     </div>
+</div>
 </body>
 
 
@@ -674,11 +655,6 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
     let availFrameProtections = JSON.parse('<?= json_encode($termsForFrameProtection) ?>');
     let availPolycarbonate = JSON.parse('<?= json_encode($termsForPolycarbonate) ?>');
 
-    console.log(availConstructionTypes);
-    console.log(availWidths);
-    console.log(availLength);
-    console.log(availFrameProtections);
-    console.log(availPolycarbonate);
 
     let width = 0;
     let length = 0;
@@ -880,6 +856,16 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
     }
 
     function refreshUIVariationData(result) {
+
+        let customPageBodies = document.getElementsByClassName('custom-page__body');
+        if (customPageBodies.length > 0) {
+            customPageBodies[0].style.display = 'block';
+        }
+
+        let globalLoaders = document.getElementsByClassName('custom-page__global-loader-box');
+        if (globalLoaders.length > 0) {
+            globalLoaders[0].style.display = 'none';
+        }
 
         refreshImage(result);
         refreshPrice(result);
