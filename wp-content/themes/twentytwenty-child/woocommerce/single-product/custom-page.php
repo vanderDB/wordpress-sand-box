@@ -81,7 +81,6 @@ if (isset($attributes[PA_POLYCARBONATE]))
 
     .custom-page__body {
         font-family: "Arsenal-Regular", Arial, sans-serif;
-        background-image: url("<?php echo get_stylesheet_directory_uri(); ?>/assets/images/background.jpg");
         background-size: contain;
         min-height: 950px;
         min-width: 1140px;
