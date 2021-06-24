@@ -51,7 +51,10 @@ if (isset($attributes[PA_POLYCARBONATE]))
     $baseOptionsAttributes[PA_POLYCARBONATE] = $attributes[PA_POLYCARBONATE];
 
 ?>
-
+<script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
 <style>
 
     .custom-page__global-loader-box {
@@ -493,7 +496,8 @@ if (isset($attributes[PA_POLYCARBONATE]))
     </div>
 </div>
 <div class="custom-page__body">
-    <input id = 'product-id' type="hidden" value="<?=$product->get_id();?>">
+    <input id='product-id' type="hidden" value="<?=$product->get_id();?>">
+    <input id='variation-id' type="hidden" value="<?=$product->get_id();?>">
 
     <div class="custom-page__main-image">
         <img class="image-in-container">
@@ -638,7 +642,8 @@ if (isset($attributes[PA_POLYCARBONATE]))
 
 <!--        <input type="text" placeholder="Как к Вам обращаться?">-->
 <!--        <input id="#phone" type="text" placeholder="Номер телефона">-->
-<!--        <input type="submit" value="Отправить заявку">-->
+        <input type="submit" onclick="addVariationToCart(event);" value="Добавить в корзину">
+
     </div>
 </div>
 </body>
@@ -660,14 +665,15 @@ if (isset($attributes[PA_POLYCARBONATE]))
     let constructionType = '';
     let frameProtection = '';
     let polycarbonate = '';
-    let productId = 0;
+    let productId = '<?= $product->get_id(); ?>';
+    let variationId = 0;
 
     bindWidthSelector();
     bindLengthSelector();
     bindConstructionTypeSelector();
     bindFrameProtectionSelector();
     bindPolycarbonateSelector();
-    bindProductId();
+    //bindProductId();
 
     function bindWidthSelector(){
 
@@ -774,17 +780,6 @@ if (isset($attributes[PA_POLYCARBONATE]))
         polycarbonate = newValue;
     }
 
-    function bindProductId(){
-
-        let existedElement = document.getElementById('product-id');
-        setProductId(existedElement.value);
-    }
-    function setProductId(newValue) {
-        productId = newValue;
-    }
-
-
-
 
     const loaderClass = 'custom-page__global-loader-box';
 
@@ -854,6 +849,55 @@ if (isset($attributes[PA_POLYCARBONATE]))
         request.send(formData);
     }
 
+    function addVariationToCart(event) {
+
+        event.preventDefault();
+
+        let formData = new FormData();
+        formData.append("product_id", productId);
+        formData.append("product_sku", "");
+        formData.append("quantity", 1);
+        formData.append("variation_id", variationId);
+        formData.append("action", 'woocommerce_ajax_add_to_cart');
+
+        var request = new XMLHttpRequest();
+
+        // request.addEventListener("progress", updateProgress, false);
+        request.addEventListener("load", transferComplete, false);
+        request.addEventListener("error", transferFailed, false);
+        // request.addEventListener("abort", transferCanceled, false);
+
+
+        // состояние передачи от сервера к клиенту (загрузка)
+        function updateProgress (oEvent) {
+            if (oEvent.lengthComputable) {
+                var percentComplete = oEvent.loaded / oEvent.total;
+                // ...
+            } else {
+                // Невозможно вычислить состояние загрузки, так как размер неизвестен
+            }
+        }
+
+        function transferComplete(evt) {
+
+            alert("Товар добавлен в корзину.");
+            hideLoader();
+        }
+
+        function transferFailed(evt) {
+            alert("При загрузке файла произошла ошибка.");
+        }
+
+        function transferCanceled(evt) {
+            alert("Пользователь отменил загрузку.");
+        }
+
+
+        request.open("POST", `?add-to-cart=${productId}`);
+        showLoader();
+        request.send(formData);
+    }
+
     function refreshUIVariationData(result) {
 
         let customPageBodies = document.getElementsByClassName('custom-page__body');
@@ -871,6 +915,11 @@ if (isset($attributes[PA_POLYCARBONATE]))
         refreshTitle(result);
         refreshDescription(result);
         refreshSummary(result);
+        refreshVariationId(result);
+
+        console.log(0);
+        console.log(productId);
+        console.log(variationId);
     }
 
     function refreshImage(result) {
@@ -918,6 +967,13 @@ if (isset($attributes[PA_POLYCARBONATE]))
         setSummaryPolycarbonate(polycarbonateString);
     }
 
+    function refreshVariationId(result) {
+
+        let newValue = result.variation_id;
+        setVariationId(newValue);
+    }
+
+
     function setImage(value) {
 
         var imageContainerOpt = document.getElementsByClassName('image-in-container');
@@ -963,6 +1019,11 @@ if (isset($attributes[PA_POLYCARBONATE]))
             elements[0].innerHTML = value;
         }
     }
+    function setVariationId(value) {
+
+        variationId = value;
+    }
+
 
 
     function getAttributeValueBySlugFromResult(result, availAttributes, attributeName) {
@@ -983,6 +1044,11 @@ if (isset($attributes[PA_POLYCARBONATE]))
 
         return newValue;
     }
+    function getVariationIdFromResult(result) {
+
+        return result.variation_id;
+    }
+
 
 
     function addSpacesToPrice(price) {
