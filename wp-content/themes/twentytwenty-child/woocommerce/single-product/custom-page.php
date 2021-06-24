@@ -5,21 +5,54 @@ if (!defined('ABSPATH')) {
 }
 
 global $post, $product;
-//echo '<pre>'; var_export($post); echo '</pre>';
 
 const PA_CONSTRUCTION_TYPE = 'pa_construction_type';
+const PA_POLYCARBONATE = 'pa_polycarbonate';
+const PA_WIDTH = 'pa_width';
+const PA_LENGTH = 'pa_length';
+const PA_FRAME_PROTECTION = 'pa_frame_protection';
 
 $productName = '';
 
-$termsForConstructionType = wc_get_product_terms(
-    $product->get_id(),
-    PA_CONSTRUCTION_TYPE,
-    array(
-        'fields' => 'all',
-    )
-);
+$termsForConstructionType = getTermInfo($product->get_id(), PA_CONSTRUCTION_TYPE);
+$termsForPolycarbonate = getTermInfo($product->get_id(), PA_POLYCARBONATE);
+$termsForFrameProtection = getTermInfo($product->get_id(), PA_FRAME_PROTECTION);
+$termsForWidth = getTermInfo($product->get_id(), PA_WIDTH);
+$termsForLength = getTermInfo($product->get_id(), PA_LENGTH);
+
+function getTermInfo($productId, $attributeMarker): array
+{
+
+    return wc_get_product_terms(
+        $productId,
+        $attributeMarker,
+        array(
+            'fields' => 'all',
+        )
+    );
+}
 
 $default_attributes = $product->get_default_attributes();
+
+
+$query = array(
+    'post_status' => 'publish',
+    'post_type' => array('product', 'product_variation'),
+    'posts_per_page' => 10,
+    'tax_query' => array(
+        'relation' => 'AND',
+        array(
+            'taxonomy' => 'pa_quantity',
+            'field' => 'term_id',
+            'terms' => '75',
+        ),
+    ),
+    'meta_key' => '_price',
+    'meta_value' => 500,
+);
+
+$wc_query = new WP_Query($query);
+
 
 foreach ($termsForConstructionType as $term) :
 
@@ -37,18 +70,18 @@ $attributes = $product->get_variation_attributes();
 
 
 $dimensionsAttributes = [];
-if (isset($attributes['pa_width']))
-    $dimensionsAttributes['pa_width'] = $attributes['pa_width'];
-if (isset($attributes['pa_length']))
-    $dimensionsAttributes['pa_length'] = $attributes['pa_length'];
+if (isset($attributes[PA_WIDTH]))
+    $dimensionsAttributes[PA_WIDTH] = $attributes[PA_WIDTH];
+if (isset($attributes[PA_LENGTH]))
+    $dimensionsAttributes[PA_LENGTH] = $attributes[PA_LENGTH];
 
 $baseOptionsAttributes = [];
-if (isset($attributes['pa_construction_type']))
-    $baseOptionsAttributes['pa_construction_type'] = $attributes['pa_construction_type'];
+if (isset($attributes[PA_CONSTRUCTION_TYPE]))
+    $baseOptionsAttributes[PA_CONSTRUCTION_TYPE] = $attributes[PA_CONSTRUCTION_TYPE];
 if (isset($attributes['pa_frame_protection']))
     $baseOptionsAttributes['pa_frame_protection'] = $attributes['pa_frame_protection'];
-if (isset($attributes['pa_polycarbonate']))
-    $baseOptionsAttributes['pa_polycarbonate'] = $attributes['pa_polycarbonate'];
+if (isset($attributes[PA_POLYCARBONATE]))
+    $baseOptionsAttributes[PA_POLYCARBONATE] = $attributes[PA_POLYCARBONATE];
 
 $available_variations = array_values($product->get_available_variations());
 
@@ -616,15 +649,9 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
                 </div>
                 <div class="custom-page__calc-menu-price-summary-list">
                     <ul>
-                        <li>
-                            Теплица: Репка Двушка 2м х 8м 31 060 р.
-                        </li>
-                        <li>
-                            Защита каркаса: Цинк
-                        </li>
-                        <li>
-                            Сотовый поликарбонат: Полигаль-Киви
-                        </li>
+                        <li class="custom-page__summary-name-size-price"></li>
+                        <li class="custom-page__summary-frame-protection"></li>
+                        <li class="custom-page__summary-polycarbonate"></li>
                     </ul>
                 </div>
             </div>
@@ -639,10 +666,19 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
 
 <script>
 
+    let defaultProductDescription = '<?= $product->get_description(); ?>';
+
     let availConstructionTypes = JSON.parse('<?= json_encode($termsForConstructionType) ?>');
-    //let defaultVariationsValues = JSON.parse('<?//= json_encode($default_attributes) ?>//');
-    //
-    //console.log(defaultVariationsValues);
+    let availWidths = JSON.parse('<?= json_encode($termsForWidth) ?>');
+    let availLength = JSON.parse('<?= json_encode($termsForLength) ?>');
+    let availFrameProtections = JSON.parse('<?= json_encode($termsForFrameProtection) ?>');
+    let availPolycarbonate = JSON.parse('<?= json_encode($termsForPolycarbonate) ?>');
+
+    console.log(availConstructionTypes);
+    console.log(availWidths);
+    console.log(availLength);
+    console.log(availFrameProtections);
+    console.log(availPolycarbonate);
 
     let width = 0;
     let length = 0;
@@ -677,7 +713,6 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
     }
     function setWidth(newValue) {
         width = newValue;
-        console.log('Width changed: ' + newValue);
     }
 
     function bindLengthSelector(){
@@ -699,7 +734,6 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
     }
     function setLength(newValue) {
         length = newValue;
-        console.log('Length changed: ' + length);
     }
 
     function bindConstructionTypeSelector(){
@@ -721,7 +755,6 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
     }
     function setConstructionType(newValue) {
         constructionType = newValue;
-        console.log('constructionType changed: ' + constructionType);
     }
 
     function bindFrameProtectionSelector(){
@@ -743,7 +776,6 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
     }
     function setFrameProtection(newValue) {
         frameProtection = newValue;
-        console.log('frameProtection changed: ' + frameProtection);
     }
 
     function bindPolycarbonateSelector(){
@@ -765,7 +797,6 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
     }
     function setPolycarbonate(newValue) {
         polycarbonate = newValue;
-        console.log('polycarbonate changed: ' + polycarbonate);
     }
 
     function bindProductId(){
@@ -775,7 +806,6 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
     }
     function setProductId(newValue) {
         productId = newValue;
-        console.log('productId changed: ' + productId);
     }
 
 
@@ -854,6 +884,8 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
         refreshImage(result);
         refreshPrice(result);
         refreshTitle(result);
+        refreshDescription(result);
+        refreshSummary(result);
     }
 
     function refreshImage(result) {
@@ -862,23 +894,43 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
     }
 
     function refreshPrice(result) {
-        let newValue = result.display_price;
+        let newValue = getPriceFromResult(result);
         setPrice(newValue);
     }
 
     function refreshTitle(result) {
 
-        let selectedSlug = result.attributes.attribute_pa_construction_type;
-        let newValue = 'Н/Д';
-
-        console.log(availConstructionTypes);
-        availConstructionTypes.forEach(element => {
-           if (selectedSlug === element.slug) {
-               newValue = element.name;
-           }
-        });
+        let newValue = getAttributeValueBySlugFromResult(result, availConstructionTypes, 'attribute_pa_construction_type');
 
         setTitle(newValue);
+    }
+
+    function refreshDescription(result) {
+
+        let newValue = result.variation_description;
+        if (newValue == undefined || newValue === '') {
+            newValue = defaultProductDescription;
+        }
+
+        setDescription(newValue);
+    }
+
+    function refreshSummary(result) {
+
+        let constructionTypeValue = getAttributeValueBySlugFromResult(result, availConstructionTypes, 'attribute_pa_construction_type');
+        let widthValue = getAttributeValueBySlugFromResult(result, availWidths, 'attribute_pa_width');
+        let lengthValue = getAttributeValueBySlugFromResult(result, availLength, 'attribute_pa_length');
+        let priceValue = getPriceFromResult(result);
+        let frameProtectionValue = getAttributeValueBySlugFromResult(result, availFrameProtections, 'attribute_pa_frame_protection');
+        let polycarbonateValue = getAttributeValueBySlugFromResult(result, availPolycarbonate, 'attribute_pa_polycarbonate');
+
+        let nameSizePriceString = `Теплица: ${constructionTypeValue} ${widthValue} х ${lengthValue} ${priceValue} р.`;
+        let frameProtectionString = `Защита каркаса: ${frameProtectionValue}`;
+        let polycarbonateString = `Сотовый поликарбонат: ${polycarbonateValue}`;
+
+        setSummaryNameSizePrice(nameSizePriceString);
+        setSummaryFrameProtection(frameProtectionString);
+        setSummaryPolycarbonate(polycarbonateString);
     }
 
     function setImage(value) {
@@ -889,18 +941,68 @@ $variations_attr = function_exists( 'wc_esc_json' ) ? wc_esc_json( $variations_j
         }
     }
     function setPrice(value) {
-
         var elements = document.getElementsByClassName('custom-page__calc-menu-total-base');
         if (elements.length > 0) {
-            elements[0].innerText = parseInt(value).toLocaleString('ru-RU');
+            elements[0].innerText = value;
         }
     }
     function setTitle(value) {
 
-        var elements = document.getElementsByClassName('custom-page__product-name');
+        let elements = document.getElementsByClassName('custom-page__product-name');
         if (elements.length > 0) {
             elements[0].innerText = value;
         }
+    }
+    function setDescription(value) {
+
+        let elements = document.getElementsByClassName('custom-page__description');
+        if (elements.length > 0) {
+            elements[0].innerHTML = value;
+        }
+    }
+    function setSummaryNameSizePrice(value) {
+        let elements = document.getElementsByClassName('custom-page__summary-name-size-price');
+        if (elements.length > 0) {
+            elements[0].innerHTML = value;
+        }
+    }
+    function setSummaryFrameProtection(value) {
+        let elements = document.getElementsByClassName('custom-page__summary-frame-protection');
+        if (elements.length > 0) {
+            elements[0].innerHTML = value;
+        }
+    }
+    function setSummaryPolycarbonate(value) {
+        let elements = document.getElementsByClassName('custom-page__summary-polycarbonate');
+        if (elements.length > 0) {
+            elements[0].innerHTML = value;
+        }
+    }
+
+
+    function getAttributeValueBySlugFromResult(result, availAttributes, attributeName) {
+
+        let slug = result.attributes[attributeName];
+        let value = 'Н/Д';
+
+        availAttributes.forEach(element => {
+            if (slug === element.slug) {
+                value = element.name;
+            }
+        });
+
+        return value;
+    }
+    function getPriceFromResult(result) {
+        let newValue = addSpacesToPrice(result.display_price);
+
+        return newValue;
+    }
+
+
+    function addSpacesToPrice(price) {
+        price = parseInt(price).toLocaleString('ru-RU');
+        return price;
     }
 
 </script>
