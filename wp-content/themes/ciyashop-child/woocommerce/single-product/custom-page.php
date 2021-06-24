@@ -907,6 +907,8 @@ if (isset($attributes[PA_POLYCARBONATE]))
 
             alert("Товар добавлен в корзину.");
             hideLoader();
+
+            location.reload();
         }
 
         function transferFailed(evt) {
