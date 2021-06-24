@@ -81,16 +81,14 @@ if (isset($attributes[PA_POLYCARBONATE]))
     }
 
     .custom-page__body {
-        font-family: "Arsenal", Arial, sans-serif!important;;
-        background-size: contain;
-        min-height: 950px;
-        min-width: 1140px;
+        font-family: "Arsenal", Arial, sans-serif!important;
+        width: 100%;
         position: relative;
         display: none;
     }
 
     .custom-page__main-image {
-        width: 480px;
+        width: 450px;
         float: left;
         padding: 15px;
         margin-right: 15px;
@@ -335,7 +333,7 @@ if (isset($attributes[PA_POLYCARBONATE]))
         border-radius: 15px;
         width: 380px;
         position: absolute;
-        top: 250px;
+        top: 280px;
         right: 0px;
         padding: 20px;
     }
