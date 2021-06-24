@@ -507,6 +507,44 @@ if (isset($attributes[PA_POLYCARBONATE]))
         100% { transform: rotate(360deg); }
     }
 
+    @media screen and (max-width: 1200px) {
+        .custom-page__main-image {
+            float: none;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 450px;
+            width: auto;
+        }
+
+        .custom-page__title {
+            font-size: 20px;
+        }
+
+        .custom-page__product-name {
+            font-size: 30px;
+            line-height: 33px;
+        }
+
+        .custom-page__dimension-attributes-container {
+            float: none;
+        }
+
+        .custom-page__base-option-attributes-container {
+            float: none;
+            width: auto;
+        }
+
+        .custom-page__order-form-container {
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+            top: 0px;
+            max-width: 380px;
+            width: auto;
+        }
+    }
+
 </style>
 
 <body onload="getVariation();">
