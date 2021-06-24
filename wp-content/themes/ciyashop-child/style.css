@@ -13,17 +13,17 @@
 */
 
 /* импортируем стили родительской темы */
-@import url("../twentytwenty/style.css");
+@import url("../ciyashop/style.css");
 
 @font-face {
     font-family: Arsenal-Regular;
-    src: url(/wp-content/themes/twentytwenty-child/fonts/Arsenal-Regular.ttf);
+    src: url(/wp-content/themes/ciyashop-child/fonts/Arsenal-Regular.ttf);
     font-weight: normal;
 }
 
 @font-face {
     font-family: Arsenal-Bold;
-    src: url(/wp-content/themes/twentytwenty-child/fonts/Arsenal-Bold.ttf);
+    src: url(/wp-content/themes/ciyashop-child/fonts/Arsenal-Bold.ttf);
     font-weight: bold;
 }
 

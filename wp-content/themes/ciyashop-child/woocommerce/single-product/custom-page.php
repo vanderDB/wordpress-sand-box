@@ -51,11 +51,9 @@ if (isset($attributes[PA_POLYCARBONATE]))
     $baseOptionsAttributes[PA_POLYCARBONATE] = $attributes[PA_POLYCARBONATE];
 
 ?>
-<!--<script-->
-<!--        src="https://code.jquery.com/jquery-3.6.0.min.js"-->
-<!--        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="-->
-<!--        crossorigin="anonymous"></script>-->
+
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Arsenal&display=swap');
 
     .custom-page__global-loader-box {
         display: flex;
@@ -83,7 +81,7 @@ if (isset($attributes[PA_POLYCARBONATE]))
     }
 
     .custom-page__body {
-        font-family: "Arsenal-Regular", Arial, sans-serif;
+        font-family: "Arsenal", Arial, sans-serif!important;;
         background-size: contain;
         min-height: 950px;
         min-width: 1140px;
@@ -117,6 +115,8 @@ if (isset($attributes[PA_POLYCARBONATE]))
         display: flex;
         align-items: flex-start;
         flex-wrap: wrap;
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 
     .custom-page__certificates {
@@ -132,6 +132,7 @@ if (isset($attributes[PA_POLYCARBONATE]))
 
     .custom-page__product-name {
         font-size: 55px;
+        line-height: 55px;
         color: #140a00;
     }
 
@@ -145,7 +146,16 @@ if (isset($attributes[PA_POLYCARBONATE]))
         vertical-align: middle;
         font-size: 14px;
         line-height: 18px;
+        margin-left: 15px;
     }
+
+    .custom-page__description {
+        font-size: 17px;
+        line-height: 23px;
+        color: #140a00;
+    }
+
+
 
     .custom-page__dimension-attributes-container {
         padding-top: 50px;
@@ -165,6 +175,9 @@ if (isset($attributes[PA_POLYCARBONATE]))
     .custom-page__dimension-attribute-title-block {
         margin-bottom: 15px;
         margin-top: 15px;
+        font-size: 17px;
+        line-height: 21px;
+        color: #140a00;
     }
 
     .custom-page__dimension-attribute-title {
@@ -364,26 +377,35 @@ if (isset($attributes[PA_POLYCARBONATE]))
         font-size: 37px;
         font-weight: 700;
         margin-left: 15px;
+        color: #140a00;
     }
 
     .custom-page__calc-menu-price-summary-title {
         font-weight: bold;
         margin-top: 30px;
         margin-bottom: 15px;
+        font-size: 20px;
+        line-height: 24px;
+        color: #140a00;
     }
 
     .custom-page__calc-menu-price-summary-list {
         font-size: 15px;
         line-height: 15px;
+        color: #140a00;
     }
 
     .custom-page__calc-menu-price-summary-list ul {
-        margin-left: 18px;
+
     }
 
     .custom-page__calc-menu-price-summary-list ul li{
         margin: 0px;
-        line-height: 17px;
+        line-height: 19px;
+    }
+
+    .custom-page__summary-name-size-price-part-two {
+        font-weight: bold;
     }
 
     input[type=text]
@@ -632,7 +654,10 @@ if (isset($attributes[PA_POLYCARBONATE]))
                 </div>
                 <div class="custom-page__calc-menu-price-summary-list">
                     <ul>
-                        <li class="custom-page__summary-name-size-price"></li>
+                        <li class="custom-page__summary-name-size-price">
+                            <span class="custom-page__summary-name-size-price-part-one"></span>
+                            <span class="custom-page__summary-name-size-price-part-two"></span>
+                        </li>
                         <li class="custom-page__summary-frame-protection"></li>
                         <li class="custom-page__summary-polycarbonate"></li>
                     </ul>
@@ -958,11 +983,13 @@ if (isset($attributes[PA_POLYCARBONATE]))
         let frameProtectionValue = getAttributeValueBySlugFromResult(result, availFrameProtections, 'attribute_pa_frame_protection');
         let polycarbonateValue = getAttributeValueBySlugFromResult(result, availPolycarbonate, 'attribute_pa_polycarbonate');
 
-        let nameSizePriceString = `Теплица: ${constructionTypeValue} ${widthValue} х ${lengthValue} ${priceValue} р.`;
+        let nameSizeString = `Теплица: ${constructionTypeValue} ${widthValue} х ${lengthValue}`;
+        let priceString = `${priceValue} р.`;
         let frameProtectionString = `Защита каркаса: ${frameProtectionValue}`;
         let polycarbonateString = `Сотовый поликарбонат: ${polycarbonateValue}`;
 
-        setSummaryNameSizePrice(nameSizePriceString);
+        setSummaryNameSize(nameSizeString);
+        setSummaryPrice(priceString);
         setSummaryFrameProtection(frameProtectionString);
         setSummaryPolycarbonate(polycarbonateString);
     }
@@ -1001,8 +1028,14 @@ if (isset($attributes[PA_POLYCARBONATE]))
             elements[0].innerHTML = value;
         }
     }
-    function setSummaryNameSizePrice(value) {
-        let elements = document.getElementsByClassName('custom-page__summary-name-size-price');
+    function setSummaryNameSize(value) {
+        let elements = document.getElementsByClassName('custom-page__summary-name-size-price-part-one');
+        if (elements.length > 0) {
+            elements[0].innerHTML = value;
+        }
+    }
+    function setSummaryPrice(value) {
+        let elements = document.getElementsByClassName('custom-page__summary-name-size-price-part-two');
         if (elements.length > 0) {
             elements[0].innerHTML = value;
         }
