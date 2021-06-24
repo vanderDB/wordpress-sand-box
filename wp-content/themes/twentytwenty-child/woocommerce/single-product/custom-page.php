@@ -787,7 +787,7 @@ if (isset($attributes[PA_POLYCARBONATE]))
 
 
 
-    const loaderClass = 'loader-box';
+    const loaderClass = 'custom-page__global-loader-box';
 
     function showLoader() {
 
