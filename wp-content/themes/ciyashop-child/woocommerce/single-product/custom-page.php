@@ -861,7 +861,6 @@ if (isset($attributes[PA_POLYCARBONATE]))
     }
 
     function getVariation() {
-
         let formData = new FormData();
         formData.append("attribute_pa_width", width);
         formData.append("attribute_pa_length", length);
@@ -1023,8 +1022,8 @@ if (isset($attributes[PA_POLYCARBONATE]))
 
         let nameSizeString = `Теплица: ${constructionTypeValue} ${widthValue} х ${lengthValue}`;
         let priceString = `${priceValue} р.`;
-        let frameProtectionString = `Защита каркаса: ${frameProtectionValue}`;
-        let polycarbonateString = `Сотовый поликарбонат: ${polycarbonateValue}`;
+        let frameProtectionString = `Цвет каркаса: ${frameProtectionValue}`;
+        let polycarbonateString = `Пленка: ${polycarbonateValue}`;
 
         setSummaryNameSize(nameSizeString);
         setSummaryPrice(priceString);
