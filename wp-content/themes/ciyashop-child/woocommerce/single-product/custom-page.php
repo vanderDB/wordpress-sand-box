@@ -545,6 +545,10 @@ if (isset($attributes[PA_POLYCARBONATE]))
         }
     }
 
+    .hidden {
+        display: none!important;
+    }
+
 </style>
 
 <body onload="getVariation();">
@@ -729,6 +733,35 @@ if (isset($attributes[PA_POLYCARBONATE]))
     let productId = '<?= $product->get_id(); ?>';
     let variationId = 0;
 
+    const cremlevskayaWidthInputs = new Map([
+        ['3%d0%bc', true],
+        ['4%d0%bc', false],
+    ]);
+    const repcadvushkaWidthInputs = new Map([
+        ['3%d0%bc', false],
+        ['4%d0%bc', true],
+    ]);
+
+
+    const cremlevskayaLengthInputs = new Map([
+        ['10%d0%bc', true],
+        ['9%d0%bc', true],
+        ['8%d0%bc', true],
+        ['7%d0%bc', true],
+        ['6%d0%bc', true],
+        ['5%d0%bc', false],
+        ['4%d0%bc', false],
+    ]);
+    const repcadvushkaLengthInputs = new Map([
+        ['10%d0%bc', true],
+        ['9%d0%bc', true],
+        ['8%d0%bc', true],
+        ['7%d0%bc', true],
+        ['6%d0%bc', true],
+        ['5%d0%bc', false],
+        ['4%d0%bc', false],
+    ]);
+
     bindWidthSelector();
     bindLengthSelector();
     bindConstructionTypeSelector();
@@ -797,6 +830,8 @@ if (isset($attributes[PA_POLYCARBONATE]))
     }
     function setConstructionType(newValue) {
         constructionType = newValue;
+
+        refreshEnabledForDimensions(constructionType);
     }
 
     function bindFrameProtectionSelector(){
@@ -862,12 +897,57 @@ if (isset($attributes[PA_POLYCARBONATE]))
 
     function getVariation() {
         let formData = new FormData();
-        formData.append("attribute_pa_width", width);
-        formData.append("attribute_pa_length", length);
         formData.append("attribute_pa_construction_type", constructionType);
         formData.append("attribute_pa_frame_protection", frameProtection);
         formData.append("attribute_pa_polycarbonate", polycarbonate);
         formData.append("product_id", productId);
+
+        switch (constructionType) {
+            case 'cremlevskaya':
+
+                if (!cremlevskayaWidthInputs.get(width)) {
+                    cremlevskayaWidthInputs.forEach(function(value,key) {
+                        if (value) {
+                            width = key;
+                            return;
+                        }
+                    });
+                }
+
+                if (!cremlevskayaLengthInputs.get(length)) {
+                    cremlevskayaLengthInputs.forEach(function(value,key) {
+                        if (value) {
+                            length = key;
+                            return;
+                        }
+                    });
+                }
+                break;
+            case 'repca-dvushka':
+                if (!repcadvushkaWidthInputs.get(width)) {
+                    repcadvushkaWidthInputs.forEach(function(value,key) {
+                        if (value) {
+                            width = key;
+                            return;
+                        }
+                    });
+                }
+
+                if (!repcadvushkaLengthInputs.get(length)) {
+                    repcadvushkaLengthInputs.forEach(function(value,key) {
+                        if (value) {
+                            length = key;
+                            return false;
+                        }
+                    });
+                }
+                break;
+            default:
+        }
+
+        formData.append("attribute_pa_width", width);
+        formData.append("attribute_pa_length", length);
+
 
         var request = new XMLHttpRequest();
 
@@ -890,7 +970,7 @@ if (isset($attributes[PA_POLYCARBONATE]))
 
         function transferComplete(evt) {
             var result = JSON.parse(request.response);
-            
+
             if (result) {
                 refreshUIVariationData(result);
             }
@@ -965,6 +1045,8 @@ if (isset($attributes[PA_POLYCARBONATE]))
 
     function refreshUIVariationData(result) {
 
+        refreshInputsSelected();
+
         let customPageBodies = document.getElementsByClassName('custom-page__body');
         if (customPageBodies.length > 0) {
             customPageBodies[0].style.display = 'block';
@@ -981,10 +1063,6 @@ if (isset($attributes[PA_POLYCARBONATE]))
         refreshDescription(result);
         refreshSummary(result);
         refreshVariationId(result);
-
-        console.log(0);
-        console.log(productId);
-        console.log(variationId);
     }
 
     function refreshImage(result) {
@@ -1127,6 +1205,69 @@ if (isset($attributes[PA_POLYCARBONATE]))
     function addSpacesToPrice(price) {
         price = parseInt(price).toLocaleString('ru-RU');
         return price;
+    }
+
+    function refreshEnabledForDimensions(constructionType) {
+
+        const widthInputs = document.querySelectorAll('input[name="pa_width"]');
+        switch (constructionType) {
+            case 'cremlevskaya':
+                widthInputs.forEach(input => {
+                    const isShow = cremlevskayaWidthInputs.get(input.value);
+                    if (isShow) {
+                        input.parentElement.classList.remove('hidden');
+                    }
+                    else input.parentElement.classList.add('hidden');
+                })
+                break;
+            case 'repca-dvushka':
+                widthInputs.forEach(input => {
+                    const isShow = repcadvushkaWidthInputs.get(input.value);
+                    if (isShow) {
+                        input.parentElement.classList.remove('hidden');
+                    }
+                    else input.parentElement.classList.add('hidden');
+                })
+                break;
+                default:
+        }
+
+        const lengthInputs = document.querySelectorAll('input[name="pa_length"]');
+        switch (constructionType) {
+            case 'cremlevskaya':
+                lengthInputs.forEach(input => {
+                    const isShow = cremlevskayaLengthInputs.get(input.value);
+                    if (isShow) {
+                        input.parentElement.classList.remove('hidden');
+                    }
+                    else input.parentElement.classList.add('hidden');
+                })
+                break;
+            case 'repca-dvushka':
+                lengthInputs.forEach(input => {
+                    const isShow = repcadvushkaLengthInputs.get(input.value);
+                    if (isShow) {
+                        input.parentElement.classList.remove('hidden');
+                    }
+                    else input.parentElement.classList.add('hidden');
+                })
+                break;
+            default:
+
+        }
+
+    }
+
+    function refreshInputsSelected() {
+        const widthInputs = document.querySelectorAll('input[name="pa_width"]');
+        widthInputs.forEach(input => {
+            input.checked = (input.value === width);
+        })
+
+        const lengthInputs = document.querySelectorAll('input[name="pa_length"]');
+        lengthInputs.forEach(input => {
+            input.checked = (input.value === length);
+        })
     }
 
 </script>
