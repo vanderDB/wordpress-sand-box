@@ -749,8 +749,8 @@ if (isset($attributes[PA_POLYCARBONATE]))
         ['8%d0%bc', true],
         ['7%d0%bc', true],
         ['6%d0%bc', true],
-        ['5%d0%bc', false],
-        ['4%d0%bc', false],
+        ['5%d0%bc', true],
+        ['4%d0%bc', true],
     ]);
     const repcadvushkaLengthInputs = new Map([
         ['10%d0%bc', true],
