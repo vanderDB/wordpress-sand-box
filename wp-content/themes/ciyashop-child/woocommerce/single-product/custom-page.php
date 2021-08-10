@@ -890,8 +890,11 @@ if (isset($attributes[PA_POLYCARBONATE]))
 
         function transferComplete(evt) {
             var result = JSON.parse(request.response);
+            
+            if (result) {
+                refreshUIVariationData(result);
+            }
 
-            refreshUIVariationData(result);
             hideLoader();
         }
 
